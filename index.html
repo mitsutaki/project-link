@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Sweet Seventeenth, Dwi Alisha ; )</title>
+<meta name="theme-color" content="#FAF3EA"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23C2506F' d='M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z'/></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Caveat:wght@400..700&family=Karla:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"/>
+<style>
+/* ============ dasar ============ */
+:root{
+  --bg:#FAF3EA; --paper:#FFFDF7;
+  --ink:#33222B; --ink-soft:#6E5A62;
+  --rose:#C2506F; --rose-deep:#9E3B58;
+  --blush:#F3D7DD; --blush-deep:#DD7E97;
+  --gold:#C79A3E; --plum:#5C3A4B;
+  --shadow:0 24px 50px -24px rgba(90,45,60,.30);
+  --shadow-sm:0 10px 26px -14px rgba(90,45,60,.25);
+  --ff-d:"Fraunces",Georgia,serif;
+  --ff-h:"Caveat","Segoe Script",cursive;
+  --ff-b:"Karla","Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--ff-b); color:var(--ink); background:var(--bg);
+  background-image:radial-gradient(rgba(120,70,90,.07) 1px,transparent 1.3px);
+  background-size:26px 26px; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+body.no-scroll{overflow:hidden}
+::selection{background:var(--blush); color:var(--rose-deep)}
+:focus-visible{outline:2px dashed var(--rose); outline-offset:3px}
+button{font-family:inherit}
+.hand{font-family:var(--ff-h)}
+#fx{position:fixed; inset:0; width:100%; height:100%; z-index:6; pointer-events:none}
+noscript p{padding:1rem; text-align:center}
+
+/* ============ pembuka : amplop ============ */
+#intro{
+  position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1.6rem; padding:1rem; text-align:center;
+  background:var(--bg);
+  background-image:radial-gradient(rgba(120,70,90,.07) 1px,transparent 1.3px); background-size:26px 26px;
+  transition:opacity .7s ease, visibility 0s .7s;
+}
+#intro.done{opacity:0; visibility:hidden}
+.intro-kicker{font-size:clamp(1.35rem,4vw,1.7rem); color:var(--plum)}
+.intro-hint{font-size:clamp(1.2rem,3.6vw,1.45rem); color:var(--ink-soft); transition:opacity .4s}
+.env-stage{perspective:1100px}
+.envelope{
+  position:relative; width:min(500px,88vw); aspect-ratio:10/7; cursor:pointer;
+  transform-style:preserve-3d; transition:transform .35s var(--ease);
+}
+.envelope:not(.open):hover{transform:translateY(-5px)}
+.env-back{
+  position:absolute; inset:0; z-index:1; background:#F2E0CD; border-radius:10px;
+  box-shadow:var(--shadow), inset 0 0 0 1px rgba(120,80,60,.08);
+}
+.letter-card{
+  position:absolute; left:7%; right:7%; top:8%; height:84%; z-index:2;
+  background:var(--paper); border-radius:8px; padding:1.1rem 1rem; text-align:center;
+  box-shadow:0 6px 18px -8px rgba(90,45,60,.35);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
+  transition:transform .95s cubic-bezier(.2,.85,.3,1.15);
+}
+.letter-card .lc-top{font-size:1.1rem; color:var(--rose)}
+.letter-card .lc-name{font-family:var(--ff-d); font-style:italic; font-weight:600; font-size:1.3rem; color:var(--ink)}
+.letter-card svg{width:26px; height:26px; fill:var(--rose); margin-top:.3rem}
+.env-pocket{
+  position:absolute; inset:0; z-index:3; background:#F7E9D8; border-radius:10px;
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+}
+.env-flap{
+  position:absolute; top:0; left:0; right:0; height:55%; z-index:4;
+  background:#EFDCC7; clip-path:polygon(0 0,100% 0,50% 100%);
+  border-radius:10px 10px 0 0; transform-origin:top center;
+  transition:transform .7s ease; backface-visibility:visible;
+}
+.envelope.open .env-flap{transform:rotateX(-180deg); filter:brightness(.95)}
+.envelope.flap-behind .env-flap{z-index:1}
+.envelope.letter-out .letter-card{z-index:6; transform:translateY(-92%)}
+.stamp{
+  position:absolute; right:14px; bottom:14px; z-index:1; background:var(--paper);
+  border:1.5px dashed var(--blush-deep); border-radius:6px; padding:.4rem .55rem;
+  transform:rotate(5deg); display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.stamp svg{width:16px; height:16px; fill:var(--rose)}
+.stamp span{font-family:var(--ff-d); font-weight:700; font-size:.8rem; color:var(--rose-deep)}
+.addr{
+  position:absolute; left:18px; bottom:14px; text-align:left; font-family:var(--ff-d);
+  font-size:1.02rem; line-height:1.35; color:var(--plum);
+}
+.addr .hand{font-size:1.15rem; color:var(--rose)}
+.seal{
+  position:absolute; left:50%; top:55%; z-index:5; width:72px; height:72px;
+  transform:translate(-50%,-50%); border:0; border-radius:46% 54% 50% 50%/52% 48% 54% 46%;
+  background:var(--rose); display:grid; place-items:center; cursor:pointer;
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.25), inset 0 -4px 7px rgba(0,0,0,.18), 0 10px 20px -8px rgba(158,59,88,.65);
+  animation:sealPulse 2.2s ease-in-out infinite; transition:transform .45s, opacity .45s;
+}
+.seal svg{width:28px; height:28px; fill:#F8E4E9}
+@keyframes sealPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.06)}}
+.envelope.open .seal{transform:translate(-50%,-160%) scale(.55) rotate(-18deg); opacity:0; pointer-events:none; animation:none}
+
+/* ============ hero ============ */
+.hero{
+  position:relative; min-height:100vh; min-height:100svh; overflow:hidden;
+  display:grid; place-items:center; text-align:center; padding:5rem 1.25rem 4rem;
+}
+.big17{
+  position:absolute; right:-4%; top:50%; transform:translateY(-52%) rotate(6deg); z-index:0;
+  font-family:var(--ff-d); font-weight:900; line-height:.8; letter-spacing:-.05em;
+  font-size:clamp(14rem,34vw,25rem); color:rgba(194,80,111,.07);
+  -webkit-text-stroke:2px rgba(194,80,111,.20); user-select:none; pointer-events:none;
+}
+.deco{position:absolute; z-index:0; animation:floaty 6s ease-in-out infinite alternate}
+.dc1{top:15%; left:6%; width:44px; color:var(--rose); opacity:.55; transform:rotate(-14deg)}
+.dc2{top:20%; right:9%; width:28px; color:var(--gold); opacity:.8; animation-duration:5s}
+.dc3{bottom:18%; left:11%; width:92px; color:var(--ink-soft); opacity:.35; animation-duration:7s}
+.dc4{bottom:23%; right:15%; width:34px; color:var(--blush-deep); opacity:.55; transform:rotate(12deg); animation-duration:5.6s}
+@keyframes floaty{from{translate:0 0}to{translate:0 -14px}}
+.hero-inner{position:relative; z-index:1; max-width:760px}
+.hero [data-hero]{opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease) calc(var(--i)*.13s + .1s), transform .8s var(--ease) calc(var(--i)*.13s + .1s)}
+.hero.in [data-hero]{opacity:1; transform:none}
+.kicker{font-size:clamp(1.4rem,4.2vw,1.75rem); color:var(--rose); margin-bottom:.6rem}
+.hero h1{
+  font-family:var(--ff-d); font-weight:550; font-size:clamp(2.7rem,8.5vw,5.4rem);
+  line-height:1.04; letter-spacing:-.01em;
+}
+.hero h1 em{font-style:italic; color:var(--rose); font-weight:600}
+.name-wrap{margin:1.3rem 0 1.5rem}
+.name-wrap h2{font-family:var(--ff-d); font-weight:600; font-size:clamp(1.5rem,4.6vw,2.5rem); letter-spacing:.01em}
+.squiggle{display:block; width:min(340px,78vw); margin:.4rem auto 0; color:var(--rose)}
+.squiggle path{stroke-dasharray:620; stroke-dashoffset:620; transition:stroke-dashoffset 1.3s ease .7s}
+.hero.in .squiggle path{stroke-dashoffset:0}
+.hero-sub{max-width:46ch; margin:0 auto; color:var(--ink-soft); font-size:1.02rem; line-height:1.7}
+.scroll-cue{
+  display:inline-flex; flex-direction:column; align-items:center; gap:.15rem; margin-top:2.2rem;
+  text-decoration:none; color:var(--rose-deep);
+}
+.scroll-cue .hand{font-size:1.3rem}
+.scroll-cue svg{width:22px; height:22px; animation:bounce 1.6s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* ============ section umum ============ */
+.section{max-width:1080px; margin:0 auto; padding:clamp(3.5rem,9vh,6.5rem) 1.25rem 0}
+.sec-head{text-align:center; margin-bottom:clamp(2.4rem,6vw,3.8rem)}
+.chap{
+  display:inline-flex; align-items:center; gap:.7rem; font-weight:700; font-size:.72rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--rose);
+}
+.chap::before,.chap::after{content:""; width:36px; height:1.5px; background:var(--rose); opacity:.45}
+.sec-head h2{font-family:var(--ff-d); font-weight:600; font-size:clamp(2rem,5vw,3.1rem); margin:.5rem 0 .15rem}
+.sec-head .note{font-family:var(--ff-h); font-size:clamp(1.2rem,3.4vw,1.4rem); color:var(--ink-soft)}
+.reveal{opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+
+/* ============ surat ============ */
+.letter{
+  position:relative; max-width:660px; margin:0 auto; background:var(--paper);
+  border:1px solid rgba(194,80,111,.14); border-radius:14px; padding:clamp(1.8rem,5vw,3rem);
+  box-shadow:var(--shadow); transform:rotate(-.6deg); font-size:1.03rem; line-height:1.8;
+}
+.letter.in{transform:rotate(-.6deg)}
+.tape{position:absolute; width:92px; height:26px; background:rgba(221,126,151,.32); border-left:1px dashed rgba(158,59,88,.3); border-right:1px dashed rgba(158,59,88,.3)}
+.tape.t1{top:-12px; left:26px; transform:rotate(-6deg)}
+.tape.t2{top:-12px; right:26px; transform:rotate(5deg)}
+.letter-open{font-family:var(--ff-h); font-size:1.6rem; color:var(--rose-deep); margin-bottom:.8rem}
+.letter strong{font-family:var(--ff-d); font-style:italic; font-weight:600; color:var(--rose-deep)}
+.letter .hl{background:var(--blush); border-radius:5px; padding:.05em .3em; box-decoration-break:clone; -webkit-box-decoration-break:clone}
+.letter .gap{margin-top:.9rem}
+.ps{font-family:var(--ff-h); font-size:1.3rem; color:var(--plum); margin-top:1.2rem}
+.sign{font-family:var(--ff-h); font-size:1.7rem; color:var(--rose); text-align:right; margin-top:1.4rem}
+
+/* ============ timeline kenangan ============ */
+.timeline{position:relative; max-width:900px; margin:0 auto}
+.timeline::before{content:""; position:absolute; top:6px; bottom:12px; left:50%; border-left:2px dashed rgba(194,80,111,.35)}
+.tl-item{position:relative; width:50%; padding:0 3.4rem 2.6rem 0; opacity:0; transform:translateY(30px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.tl-item:nth-child(even){margin-left:50%; padding:0 0 2.6rem 3.4rem}
+.tl-item.in{opacity:1; transform:none}
+.tl-marker{
+  position:absolute; top:16px; width:46px; height:46px; border-radius:50%; z-index:1;
+  background:var(--rose); color:#FFF6F0; display:grid; place-items:center;
+  border:4px solid var(--bg); box-shadow:0 8px 16px -8px rgba(158,59,88,.55);
+}
+.tl-marker svg{width:21px; height:21px}
+.tl-item:nth-child(odd) .tl-marker{right:-23px}
+.tl-item:nth-child(even) .tl-marker{left:-23px}
+.tl-card{
+  background:var(--paper); border:1px solid rgba(194,80,111,.14); border-radius:16px;
+  padding:1.15rem 1.35rem; box-shadow:var(--shadow-sm); transition:transform .3s var(--ease), box-shadow .3s;
+}
+.tl-card:hover{transform:translateY(-4px) rotate(.4deg); box-shadow:var(--shadow)}
+.tl-date{font-family:var(--ff-h); font-size:1.15rem; color:var(--rose)}
+.tl-card h3{font-family:var(--ff-d); font-weight:600; font-size:1.22rem; margin:.1rem 0 .35rem}
+.tl-card p{font-size:.95rem; line-height:1.6; color:var(--ink-soft)}
+.tl-item.today .tl-card{background:#FBE9EE; border-color:rgba(194,80,111,.4)}
+.tl-item.today .tl-marker{background:var(--gold); color:#FFF9EE}
+@media (max-width:767px){
+  .timeline::before{left:23px}
+  .tl-item,.tl-item:nth-child(even){width:100%; margin-left:0; padding:0 0 2.2rem 4rem}
+  .tl-item:nth-child(odd) .tl-marker,.tl-item:nth-child(even) .tl-marker{left:0; right:auto}
+}
+
+/* ============ 17 balon doa ============ */
+.balloon-field{position:relative; height:clamp(380px,58vw,520px); margin-bottom:4.5rem}
+.balloon{
+  position:absolute; width:56px; height:72px; background:none; border:0; padding:0;
+  cursor:pointer; animation:bob var(--t,3.6s) ease-in-out var(--dl,0s) infinite alternate;
+}
+@keyframes bob{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-13px) rotate(2.5deg)}}
+.b-body{
+  position:relative; display:block; width:56px; height:66px;
+  border-radius:50% 50% 50% 50%/42% 42% 58% 58%; background:var(--bc);
+  box-shadow:inset -5px -6px 0 rgba(0,0,0,.07); transition:transform .25s var(--ease);
+}
+.balloon:hover .b-body,.balloon:focus-visible .b-body{transform:scale(1.08)}
+.b-shine{position:absolute; width:12px; height:18px; border-radius:50%; background:rgba(255,255,255,.5); filter:blur(2px); top:8px; left:9px; transform:rotate(18deg)}
+.b-num{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--ff-h); font-weight:700; font-size:1.05rem; color:var(--nt); padding-bottom:5px}
+.b-knot{position:absolute; top:64px; left:50%; transform:translateX(-50%); width:10px; height:7px; background:var(--bd); clip-path:polygon(50% 0,100% 100%,0 100%)}
+.b-string{position:absolute; top:70px; left:50%; width:16px; height:54px; transform:translateX(-50%); overflow:visible; pointer-events:none}
+.b-string path{stroke:var(--bd); stroke-width:1.3; fill:none; opacity:.6}
+.c1{--bc:#D97A93; --bd:#C2506F; --nt:#FFF7F2}
+.c2{--bc:#E3AF4F; --bd:#C79A3E; --nt:#6B4A12}
+.c3{--bc:#8A5A6E; --bd:#6E4456; --nt:#F8E9EE}
+.c4{--bc:#EFB9C6; --bd:#DD7E97; --nt:#A93B58}
+.balloon.pop{animation:none; transition:transform .32s ease-in, opacity .32s ease-in; transform:scale(1.5); opacity:0}
+.wish-float{
+  position:absolute; transform:translate(-50%,0); z-index:5; pointer-events:none; white-space:nowrap;
+  font-family:var(--ff-h); font-size:1.25rem; color:var(--rose-deep); background:rgba(255,253,247,.92);
+  padding:.15em .7em; border-radius:999px; box-shadow:var(--shadow-sm);
+  animation:floatUp 1.9s ease-out forwards;
+}
+@keyframes floatUp{
+  0%{opacity:0; transform:translate(-50%,8px) scale(.8)}
+  16%{opacity:1; transform:translate(-50%,-6px) scale(1)}
+  100%{opacity:0; transform:translate(-50%,-72px)}
+}
+.wish-progress{text-align:center; margin-bottom:1.6rem}
+.wish-progress .hand{font-size:1.4rem; color:var(--plum)}
+.bar{width:190px; height:5px; background:var(--blush); border-radius:99px; margin:.5rem auto 0; overflow:hidden}
+.bar i{display:block; height:100%; width:0%; background:var(--rose); border-radius:99px; transition:width .45s var(--ease)}
+.wish-list{list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:.55rem .7rem; max-width:820px; margin:0 auto}
+.wish-list li{
+  display:inline-flex; align-items:center; gap:.45rem; font-family:var(--ff-h); font-size:1.3rem;
+  color:var(--plum); background:var(--paper); border:1.5px dashed rgba(194,80,111,.4);
+  border-radius:999px; padding:.15em .85em; opacity:0; transform:scale(.7); transition:opacity .4s, transform .4s var(--ease);
+}
+.wish-list li.show{opacity:1; transform:scale(1)}
+.wish-list svg{width:14px; height:14px; fill:var(--rose); flex:none}
+.final-note{
+  max-width:540px; margin:2.4rem auto 0; background:var(--paper); border:1.5px solid rgba(194,80,111,.4);
+  border-radius:18px; padding:1.8rem 1.7rem; text-align:center; box-shadow:var(--shadow);
+  opacity:0; transform:translateY(24px) scale(.96); transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.final-note.in{opacity:1; transform:none}
+.final-note svg{width:26px; height:26px; fill:var(--gold); margin-bottom:.4rem}
+.final-note .hand{font-size:1.6rem; color:var(--rose-deep)}
+.final-note p:last-child{margin-top:.5rem; color:var(--ink-soft); line-height:1.65}
+.final-note em{font-family:var(--ff-d); color:var(--ink)}
+
+/* ============ kue & lilin ============ */
+.cake-zone{display:flex; flex-direction:column; align-items:center; padding-top:1rem}
+.cake{position:relative; width:clamp(280px,72vw,420px); display:flex; flex-direction:column; align-items:center; padding-top:4px}
+.candles{position:relative; z-index:3; height:70px; display:flex; align-items:flex-end; justify-content:center; gap:clamp(4px,1.4vw,8px); margin-bottom:-2px}
+.candle{
+  position:relative; width:9px; height:44px; border-radius:3px 3px 2px 2px; cursor:pointer;
+  box-shadow:inset -2px 0 0 rgba(0,0,0,.06); user-select:none; -webkit-user-select:none;
+}
+.candle:nth-child(odd){background:repeating-linear-gradient(-45deg,#E58AA1 0 4px,#FFF6EE 4px 9px)}
+.candle:nth-child(even){background:repeating-linear-gradient(-45deg,#E2B45C 0 4px,#FFF6EE 4px 9px)}
+.candle::before{content:""; position:absolute; top:-5px; left:50%; transform:translateX(-50%); width:2px; height:5px; background:#5A4632; border-radius:2px; transition:background .3s}
+.candle.out::before{background:#3A3230}
+.flame{
+  position:absolute; top:-25px; left:50%; width:13px; height:19px; z-index:2;
+  transform:translateX(-50%); transform-origin:50% 100%;
+  background:#FFB84D; border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+  box-shadow:0 -3px 16px 4px rgba(255,166,64,.45), inset -2px -3px 4px rgba(214,86,21,.55);
+  animation:flick .2s ease-in-out infinite alternate; transition:opacity .25s, transform .25s;
+}
+.flame::after{content:""; position:absolute; inset:5px 3px 2px; background:#FFE9B0; border-radius:inherit}
+@keyframes flick{from{transform:translateX(-50%) scale(1) rotate(-1.6deg)}to{transform:translateX(-50%) scaleX(.93) scaleY(1.09) rotate(1.8deg)}}
+.candle.out .flame{animation:none; opacity:0; transform:translateX(-50%) scale(.05)}
+.smoke{position:absolute; top:-20px; left:50%; width:7px; height:7px; border-radius:50%; background:rgba(120,110,115,.55); filter:blur(2px); opacity:0; transform:translateX(-50%)}
+.candle.out .smoke{animation:smokeUp 1.15s ease-out forwards}
+@keyframes smokeUp{0%{opacity:.75; transform:translate(-50%,0) scale(1)}100%{opacity:0; transform:translate(-42%,-36px) scale(2.6)}}
+.tier{position:relative; border-radius:10px 10px 14px 14px; box-shadow:inset 0 -8px 0 rgba(0,0,0,.05)}
+.tier-top{width:62%; height:76px; background:#FFF6EA; z-index:2}
+.tier-bottom{width:94%; height:96px; background:#F5D3DC; margin-top:-4px; z-index:1; overflow:hidden}
+.drip{position:absolute; top:-1px; left:0; width:100%; height:32px; display:block}
+.spr{position:absolute; width:7px; height:2.5px; border-radius:2px; opacity:.85}
+.plate{width:106%; height:17px; background:#EFE0CD; border-radius:50%; margin-top:-7px; box-shadow:0 12px 26px -10px rgba(90,50,65,.3)}
+.blow-status{margin-top:1.7rem; font-family:var(--ff-h); font-size:1.35rem; color:var(--plum); text-align:center}
+.blow-controls{display:flex; gap:.8rem; justify-content:center; margin-top:1.1rem; flex-wrap:wrap}
+.btn-blow,.btn-relight{
+  border-radius:999px; padding:.95rem 2.3rem; font-weight:700; font-size:.85rem;
+  letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:transform .15s, box-shadow .2s;
+  user-select:none; -webkit-user-select:none; touch-action:none;
+}
+.btn-blow{border:0; background:var(--rose); color:#FFF7F2; box-shadow:0 14px 28px -12px rgba(158,59,88,.6)}
+.btn-blow:hover{transform:translateY(-2px)}
+.btn-blow.holding{transform:scale(.95)}
+.btn-relight{background:transparent; border:1.5px solid var(--rose); color:var(--rose)}
+.btn-relight:hover{background:var(--blush)}
+.blow-hint{margin-top:.8rem; font-family:var(--ff-h); font-size:1.15rem; color:var(--ink-soft)}
+.wish-done{
+  max-width:520px; margin:2rem auto 0; background:var(--paper); border:1.5px solid rgba(194,80,111,.4);
+  border-radius:18px; padding:1.7rem 1.6rem; text-align:center; box-shadow:var(--shadow);
+  opacity:0; transform:translateY(22px) scale(.96); transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.wish-done.in{opacity:1; transform:none}
+.wish-done svg{width:24px; height:24px; fill:var(--gold)}
+.wish-done .hand{font-size:1.55rem; color:var(--rose-deep); margin:.3rem 0 .4rem}
+.wish-done p:last-child{color:var(--ink-soft); line-height:1.65}
+.wish-done em{font-family:var(--ff-d); color:var(--ink)}
+
+/* ============ footer ============ */
+footer{text-align:center; padding:5rem 1.25rem 6rem}
+footer .hand{font-size:1.5rem; color:var(--plum)}
+footer .from{margin-top:.4rem; font-family:var(--ff-d); font-style:italic; font-size:1.05rem; color:var(--ink-soft)}
+.link-btn{
+  margin-top:1.4rem; background:none; border:0; cursor:pointer; font-family:var(--ff-b);
+  font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--rose);
+  border-bottom:1.5px dashed var(--rose); padding-bottom:2px;
+}
+footer .tiny{margin-top:1.2rem; font-size:.75rem; letter-spacing:.2em; color:var(--ink-soft); opacity:.7}
+
+/* ============ tombol musik ============ */
+#musicBtn{
+  position:fixed; right:18px; bottom:18px; z-index:40; width:52px; height:52px; border-radius:50%;
+  background:var(--paper); border:1.5px solid rgba(194,80,111,.4); color:var(--rose);
+  display:grid; place-items:center; cursor:pointer; box-shadow:var(--shadow-sm); transition:transform .2s;
+}
+#musicBtn:hover{transform:scale(1.09)}
+#musicBtn svg{width:22px; height:22px}
+#musicBtn .ic-on{display:none}
+#musicBtn.playing .ic-on{display:block}
+#musicBtn.playing .ic-off{display:none}
+#musicBtn.playing{animation:ringPulse 2.4s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 0 0 rgba(194,80,111,.35), var(--shadow-sm)}55%{box-shadow:0 0 0 12px rgba(194,80,111,0), var(--shadow-sm)}}
+
+@media (max-width:600px){
+  .balloon{width:46px; height:60px}
+  .b-body{width:46px; height:55px}
+  .b-knot{top:53px}
+  .b-string{top:58px; height:46px}
+  .b-num{font-size:.92rem}
+  .dc3{width:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.15s !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body class="no-scroll">
+<noscript><p>Aktifkan JavaScript dulu ya, biar kejutannya jalan ; )</p></noscript>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- ===================== PEMBUKA : AMPLOP BERSEGEL ===================== -->
+<div id="intro">
+  <p class="intro-kicker hand">psst… ada kiriman buat kamu ; )</p>
+  <div class="env-stage">
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Ketuk untuk membuka surat">
+      <div class="env-back"></div>
+      <div class="letter-card">
+        <p class="lc-top hand">selamat ulang tahun yang ke-17</p>
+        <p class="lc-name">Dwi Alisha Aulia Putri</p>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z"/></svg>
+      </div>
+      <div class="env-pocket">
+        <p class="addr"><span class="hand">Kepada:</span><br>Dwi Alisha<br>Aulia Putri</p>
+        <div class="stamp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z"/></svg>
+          <span>XVII</span>
+        </div>
+      </div>
+      <div class="env-flap"></div>
+      <button class="seal" id="seal" aria-label="Segel lilin — ketuk untuk membuka">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="intro-hint hand" id="introHint">ketuk segel lilinnya buat buka ; )</p>
+</div>
+
+<main>
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="hero">
+    <span class="big17" aria-hidden="true">17</span>
+    <svg class="deco dc1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    <svg class="deco dc2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" fill="currentColor"/></svg>
+    <svg class="deco dc3" viewBox="0 0 96 20" aria-hidden="true"><path d="M3 11c8-9 16 9 24 0s16 9 24 0 16 9 24 0 12 6 18 2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <svg class="deco dc4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z" fill="currentColor"/></svg>
+    <div class="hero-inner">
+      <p class="kicker hand" data-hero style="--i:0">ehem… ada yang ulang tahun hari ini ; )</p>
+      <h1 data-hero style="--i:1">Happy <em>Sweet</em><br/>Seventeenth</h1>
+      <div class="name-wrap" data-hero style="--i:2">
+        <h2>Dwi Alisha Aulia Putri</h2>
+        <svg class="squiggle" viewBox="0 0 220 14" aria-hidden="true"><path d="M3 9c14-8 28 8 42 0s28 8 42 0 28 8 42 0 28 8 42 0 28 8 43 0" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
+      </div>
+      <p class="hero-sub" data-hero style="--i:3">Tujuh belas tahun pertamanya sudah kamu lalui dengan hebat. Di bawah ini kusimpan beberapa hal kecil — sepucuk surat, jejak kenangan, tujuh belas doa, dan satu kue yang lilinnya nunggu ditiup.</p>
+      <a class="scroll-cue" href="#surat" data-hero style="--i:4">
+        <span class="hand">mulai dari sini</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===================== BAB 1 : SURAT ===================== -->
+  <section class="section" id="surat">
+    <div class="sec-head reveal">
+      <span class="chap">Bab Satu</span>
+      <h2>Surat Untukmu</h2>
+      <p class="note">dibaca pelan-pelan ya, gak usah buru-buru ; )</p>
+    </div>
+    <article class="letter reveal">
+      <span class="tape t1" aria-hidden="true"></span><span class="tape t2" aria-hidden="true"></span>
+      <p class="letter-open">Untuk yang ke-17,</p>
+      <p>happy birthday, <strong>Dwi Alisha Aulia Putri</strong> ;&nbsp;)</p>
+      <p class="gap">Happy Sweet Seventeenth. I just wanna say&hellip; congratulations!</p>
+      <p class="gap"><span class="hl">Semoga panjang umur</span>, <span class="hl">semoga sehat selalu</span>, semoga bisa dilancarkan segala urusannya, terhindar dari berbagai macam musibah, bisa menjadi putri kebanggaan orangtuanya, dimudahkan mengerjakan <span class="hl">tryout &amp; TKA</span>-nya&nbsp;:v, dan diloloskan <span class="hl">SNBT</span> &amp; <span class="hl">SNBP</span>-nya.</p>
+      <p class="gap">semoga suka ya ;&nbsp;)</p>
+      <p class="ps">P.S. — di bawah ada balon &amp; kue kecil buat kamu. Jangan di-skip ya ;&nbsp;)</p>
+      <p class="sign">&mdash; Naufal Ahmad Zakwan Al-Ghaniy</p>
+    </article>
+  </section>
+
+  <!-- ===================== BAB 2 : TIMELINE KENANGAN ===================== -->
+  <section class="section" id="kenangan">
+    <div class="sec-head reveal">
+      <span class="chap">Bab Dua</span>
+      <h2>Jejak Kenangan</h2>
+      <p class="note">gak ada fotonya — tapi momennya masih nempel, kok ; )</p>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- ===================== BAB 3 : 17 BALON DOA ===================== -->
+  <section class="section" id="doa">
+    <div class="sec-head reveal">
+      <span class="chap">Bab Tiga</span>
+      <h2>Tujuh Belas Doa</h2>
+      <p class="note">pecahin balonnya satu-satu, tiap balon nyimpen satu doa ; )</p>
+    </div>
+    <div class="balloon-field reveal" id="balloonField"></div>
+    <div class="wish-progress">
+      <p class="hand"><span id="wishCount">0</span> / 17 doa terkumpul</p>
+      <div class="bar"><i id="wishBar"></i></div>
+    </div>
+    <ul class="wish-list" id="wishList"></ul>
+    <div class="final-note" id="finalNote" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
+      <p class="hand">Balonnya habis, doanya belum.</p>
+      <p>Satu doa ekstra yang gak masuk hitungan: <em>semoga kamu bahagia — bukan cuma hari ini, tapi tiap hari.</em> ;&nbsp;)</p>
+    </div>
+  </section>
+
+  <!-- ===================== BAB 4 : KUE & LILIN ===================== -->
+  <section class="section" id="lilin">
+    <div class="sec-head reveal">
+      <span class="chap">Bab Empat</span>
+      <h2>Satu Permintaan</h2>
+      <p class="note">pejamkan mata, tarik napas&hellip; terus tiup ; )</p>
+    </div>
+    <div class="cake-zone reveal">
+      <div class="cake" id="cake" aria-label="Kue ulang tahun dengan 17 lilin">
+        <div class="candles" id="candles"></div>
+        <div class="tier tier-top" id="tierTop"></div>
+        <div class="tier tier-bottom" id="tierBottom"></div>
+        <div class="plate"></div>
+      </div>
+      <p class="blow-status" id="blowStatus">17 lilin masih menyala</p>
+      <div class="blow-controls">
+        <button class="btn-blow" id="btnBlow">Tahan untuk meniup</button>
+        <button class="btn-relight" id="btnRelight" hidden>Nyalakan lagi</button>
+      </div>
+      <p class="blow-hint hand">(bisa juga ketuk lilinnya satu-satu loh ;&nbsp;))</p>
+      <div class="wish-done" id="wishDone" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
+        <p class="hand">Permintaannya udah dikirim ke semesta.</p>
+        <p>Selamat ulang tahun yang ke-17, Dwi Alisha. Satu hal lagi dari aku: <em>semoga tahun ini kamu lebih sering ketawa daripada tahun kemarin.</em> ;&nbsp;)</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="hand">ditulis pelan-pelan, dibuat sambil senyum-senyum ;&nbsp;)</p>
+    <p class="from">&mdash; Naufal Ahmad Zakwan Al-Ghaniy, untuk Dwi Alisha Aulia Putri</p>
+    <button class="link-btn" id="replayBtn">ulang dari awal</button>
+    <p class="tiny">XVII &middot; SWEET SEVENTEEN &middot; psst, ketuk di mana aja buat confetti kecil ; )</p>
+  </footer>
+</main>
+
+<button id="musicBtn" aria-label="Nyalakan / matikan musik kotak musik" title="Musik kotak musik">
+  <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="6" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="16" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="6" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="16" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+</button>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ==========================================================
+   DATA — gampang diedit: kenangan, doa, & posisi balon
+   ========================================================== */
+const ICONS={
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>',
+  chat:'<path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 20l1.1-4.3A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 10.5h7M8.5 13.5h4"/>',
+  music:'<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+  moon:'<path d="M20 13.5A8 8 0 1 1 10.5 4 6.5 6.5 0 0 0 20 13.5z"/><path d="M17 4l.6 1.6L19 6l-1.4.4L17 8l-.6-1.6L15 6l1.4-.4z"/>',
+  star:'<path d="M12 3l2.5 5.6 6 .6-4.5 4 1.3 5.9L12 16l-5.3 3.1L8 13.2 3.5 9.2l6-.6z"/>',
+  gift:'<rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M4 10h16M12 10v10M12 10s-4 0-4.5-2.5C7.2 5.6 9 4.5 10.3 5.2 11.6 5.9 12 10 12 10zm0 0s4 0 4.5-2.5c.3-1.9-1.5-3-2.8-2.3C12.4 5.9 12 10 12 10z"/>'
+};
+const MEMORIES=[
+  {icon:'sun',  date:'awal cerita',            title:'Pertama kali lihat kamu',      text:'Di keramaian yang biasa-biasa aja itu, ada satu orang yang diam-diam bikin hari terasa lebih cerah. Orangnya kamu.'},
+  {icon:'chat', date:'beberapa hari kemudian', title:'Sapaan pertama',               text:'Sapaan kecil yang kayaknya gak akan berarti buat siapa-siapa. Ternyata itu jadi awal segalanya.'},
+  {icon:'music',date:'lama-lama jadi sering',  title:'Obrolan tanpa habisnya',       text:'Dari PR sampai mimpi-mimpi, dari hal konyol sampai hal serius. Waktu jalan cepet banget kalau lagi ngobrol sama kamu.'},
+  {icon:'moon', date:'jam-jam sepi',           title:'Curhat tengah malam',          text:'Kamu selalu tau kapan harus ngetawain dan kapan harus dengerin. Terima kasih udah jadi tempat pulang cerita ya.'},
+  {icon:'star', date:'selalu, sebenarnya',     title:'Tawa-tawa receh',              text:'Banyak momen gak penting yang literally gak akan diingat siapa pun — tapi justru itu yang paling pengen kuingat terus.'},
+  {icon:'gift', date:'hari ini',               title:'Bab 17 dimulai',               text:'Umur yang ke-17. Semoga bab-bab selanjutnya jauh lebih indah dari bab-bab sebelumnya. Selamat ulang tahun, Alisha.'}
+];
+const WISHES=[
+  'panjang umur yang penuh berkah','sehat terus, badan maupun hatinya','semua urusannya dimudahkan',
+  'dijauhkan dari macem-macem musibah','jadi kebanggaan orangtua, selalu','tryout & TKA-nya lancar jaya :v',
+  'SNBT-nya lolos, aamiin','SNBP-nya lolos juga, double aamiin','makin pintar, makin bijak',
+  'dikelilingi orang-orang baik','mimpi-mimpinya satu-satu tercapai','hatinya tenang, pikirannya ringan',
+  'ketawa tiap hari, beneran ketawa','rezekinya lancar, sekecil apa pun bentuknya','tiap langkahnya selalu diberkahi',
+  'ditemani orang yang tepat, selalu','dan yang terakhir: bahagia. hari ini, besok, terus'
+];
+const POS=[[5,6],[29,10],[53,4],[77,9],[16,26],[40,21],[64,27],[88,20],[5,45],[29,49],[53,41],[77,47],[16,63],[40,67],[64,59],[88,64],[42,81]];
+
+/* ==========================================================
+   KANVAS PARTIKEL : hati ambient, confetti, jejak kursor
+   ========================================================== */
+const cv=$('#fx'), cx=cv.getContext('2d');
+let W=0,H=0;
+function resize(){const d=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight; cv.width=W*d; cv.height=H*d; cx.setTransform(d,0,0,d,0,0);}
+addEventListener('resize',resize); resize();
+const COLORS=['#C2506F','#DD7E97','#C79A3E','#8A5A6E','#F3D7DD'];
+const parts=[];
+function push(p){ if(parts.length>320) parts.splice(0,parts.length-320); parts.push(p); }
+function spawnAmbient(){
+  push({type:'amb', x:Math.random()*W, y:H+20, vy:-(.25+Math.random()*.4), sway:.2+Math.random()*.3,
+    phase:Math.random()*6.28, size:5+Math.random()*7, color:COLORS[(Math.random()*3)|0],
+    life:700, ttl:700, alpha:.09+Math.random()*.12});
+}
+function burst(x,y,n,pow){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2, sp=(.3+Math.random()*.7)*pow, r=Math.random();
+    const type=r<.45?'conf':r<.8?'heart':'spark';
+    push({type, x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp-pow*.35, rot:Math.random()*6.28,
+      vr:(Math.random()-.5)*.28, size:type==='conf'?5+Math.random()*6:type==='heart'?4+Math.random()*4.5:2+Math.random()*2.5,
+      color:COLORS[(Math.random()*COLORS.length)|0], life:70+Math.random()*40, ttl:110, alpha:1});
+  }
+}
+function drawHeartShape(){
+  cx.beginPath(); cx.moveTo(0,-.32);
+  cx.bezierCurveTo(.62,-1.02,1.32,-.02,0,.92);
+  cx.bezierCurveTo(-1.32,-.02,-.62,-1.02,0,-.32);
+  cx.closePath(); cx.fill();
+}
+let lastAmb=0;
+function loop(ts){
+  requestAnimationFrame(loop);
+  if(document.hidden) return;
+  cx.clearRect(0,0,W,H);
+  if(!reduced && ts-lastAmb>820){ lastAmb=ts; spawnAmbient(); }
+  for(let i=parts.length-1;i>=0;i--){
+    const p=parts[i]; p.life--;
+    if(p.life<=0){ parts.splice(i,1); continue; }
+    const fade=Math.min(1,p.life/28);
+    if(p.type==='amb'){
+      p.y+=p.vy; p.x+=Math.sin(p.phase+=.012)*p.sway;
+      cx.globalAlpha=p.alpha*Math.min(1,p.life/120);
+      cx.fillStyle=p.color; cx.save(); cx.translate(p.x,p.y); cx.scale(p.size,p.size); drawHeartShape(); cx.restore();
+    }else if(p.type==='conf'){
+      p.vy+=.12; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+      cx.globalAlpha=fade; cx.fillStyle=p.color;
+      cx.save(); cx.translate(p.x,p.y); cx.rotate(p.rot); cx.fillRect(-p.size/2,-p.size*.35,p.size,p.size*.7); cx.restore();
+    }else if(p.type==='heart'){
+      p.vy+=.05; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+      cx.globalAlpha=fade*.9; cx.fillStyle=p.color;
+      cx.save(); cx.translate(p.x,p.y); cx.rotate(p.rot); cx.scale(p.size,p.size); drawHeartShape(); cx.restore();
+    }else{
+      p.x+=p.vx; p.y+=p.vy; p.vx*=.94; p.vy*=.94;
+      cx.globalAlpha=fade; cx.fillStyle=p.color;
+      cx.beginPath(); cx.arc(p.x,p.y,p.size*p.life/p.ttl*2,0,6.29); cx.fill();
+    }
+  }
+  cx.globalAlpha=1;
+}
+requestAnimationFrame(loop);
+
+/* jejak hati kursor (mouse) + confetti kecil tiap ketukan */
+let lastMove=0;
+addEventListener('pointermove',e=>{
+  if(reduced||e.pointerType!=='mouse') return;
+  const now=performance.now(); if(now-lastMove<90) return; lastMove=now;
+  push({type:'heart',x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*.6,vy:-.9,rot:(Math.random()-.5)*.8,
+    vr:(Math.random()-.5)*.1,size:3+Math.random()*3,color:COLORS[(Math.random()*3)|0],life:38,ttl:38,alpha:.5});
+},{passive:true});
+addEventListener('pointerdown',e=>{ if(!reduced) burst(e.clientX,e.clientY,5,3.2); },{passive:true});
+
+/* ==========================================================
+   AUDIO : kotak musik "Happy Birthday" (Web Audio, tanpa file)
+   ========================================================== */
+let ac=null, master=null, musicOn=false, loopTimer=null;
+const BEAT=.42;
+const MELODY=[
+  [293.66,.75],[293.66,.25],[329.63,1],[293.66,1],[392.00,1],[369.99,1.9],[0,.35],
+  [293.66,.75],[293.66,.25],[329.63,1],[293.66,1],[440.00,1],[392.00,1.9],[0,.35],
+  [293.66,.75],[293.66,.25],[587.33,1],[493.88,1],[392.00,1],[369.99,1],[329.63,1.9],[0,.35],
+  [523.25,.75],[523.25,.25],[493.88,1],[392.00,1],[440.00,1],[392.00,2.4]
+];
+function ensureAC(){
+  try{
+    if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.5; master.connect(ac.destination); }
+    if(ac.state==='suspended') ac.resume();
+  }catch(e){}
+}
+function ring(f,t,d){
+  const g=ac.createGain();
+  g.gain.setValueAtTime(.0001,t);
+  g.gain.exponentialRampToValueAtTime(.34,t+.015);
+  g.gain.exponentialRampToValueAtTime(.0001,t+Math.min(d*2.1,1.6));
+  g.connect(master);
+  const o=ac.createOscillator(); o.type='sine'; o.frequency.value=f;
+  o.connect(g); o.start(t); o.stop(t+1.7);
+  const g2=ac.createGain(); /* nada inaran khas kotak musik */
+  g2.gain.setValueAtTime(.0001,t);
+  g2.gain.exponentialRampToValueAtTime(.05,t+.015);
+  g2.gain.exponentialRampToValueAtTime(.0001,t+Math.min(d*1.4,1.1));
+  g2.connect(master);
+  const o2=ac.createOscillator(); o2.type='sine'; o2.frequency.value=f*3;
+  o2.connect(g2); o2.start(t); o2.stop(t+1.3);
+}
+function scheduleLoop(){
+  if(!musicOn||!ac) return;
+  clearTimeout(loopTimer);
+  let t=ac.currentTime+.06;
+  MELODY.forEach(([f,b])=>{ if(f) ring(f,t,b*BEAT); t+=b*BEAT; });
+  loopTimer=setTimeout(scheduleLoop,((t-ac.currentTime)+1.4)*1000);
+}
+function setMusic(on){
+  if(on&&on===musicOn) return;
+  musicOn=on; $('#musicBtn').classList.toggle('playing',on);
+  if(on){ ensureAC(); scheduleLoop(); } else clearTimeout(loopTimer);
+}
+ $('#musicBtn').addEventListener('click',()=>setMusic(!musicOn));
+function popSound(){
+  if(!ac) return;
+  try{
+    const t=ac.currentTime, o=ac.createOscillator(), g=ac.createGain();
+    o.type='triangle'; o.frequency.setValueAtTime(520,t); o.frequency.exponentialRampToValueAtTime(90,t+.09);
+    g.gain.setValueAtTime(.22,t); g.gain.exponentialRampToValueAtTime(.0001,t+.12);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+.14);
+  }catch(e){}
+}
+
+/* ==========================================================
+   AMPLOP : urutan buka surat
+   ========================================================== */
+const env=$('#envelope'), intro=$('#intro');
+let opened=false;
+function openLetter(){
+  if(opened) return; opened=true;
+  $('#introHint').style.opacity='0';
+  env.classList.add('open');
+  setTimeout(()=>env.classList.add('flap-behind','letter-out'),680);
+  setTimeout(()=>{
+    intro.classList.add('done');
+    document.body.classList.remove('no-scroll');
+    $('#hero').classList.add('in');
+    if(!reduced) burst(innerWidth/2,innerHeight*.32,90,10);
+    setMusic(true);
+  },1600);
+  setTimeout(()=>{ intro.style.display='none'; },2400);
+}
+env.addEventListener('click',openLetter);
+env.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openLetter(); }});
+
+/* ==========================================================
+   TIMELINE KENANGAN
+   ========================================================== */
+const tl=$('#timeline');
+MEMORIES.forEach(m=>{
+  const li=document.createElement('div');
+  li.className='tl-item';
+  li.innerHTML=
+    '<div class="tl-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[m.icon]+'</svg></div>'+
+    '<div class="tl-card"><span class="tl-date">'+m.date+'</span><h3>'+m.title+'</h3><p>'+m.text+'</p></div>';
+  tl.appendChild(li);
+});
+tl.lastElementChild.classList.add('today');
+
+/* ==========================================================
+   17 BALON DOA
+   ========================================================== */
+const field=$('#balloonField'), list=$('#wishList');
+let popped=0;
+WISHES.forEach((w,i)=>{
+  const b=document.createElement('button');
+  b.className='balloon c'+(i%4+1);
+  b.style.left=POS[i][0]+'%'; b.style.top=POS[i][1]+'%';
+  b.style.setProperty('--t',(3+(i%5)*.55)+'s');
+  b.style.setProperty('--dl',(-(i*.37))+'s');
+  b.setAttribute('aria-label','Pecahkan balon ke-'+(i+1));
+  b.innerHTML='<span class="b-body"><span class="b-shine"></span><span class="b-num">'+(i+1)+'</span></span>'+
+              '<span class="b-knot"></span>'+
+              '<svg class="b-string" viewBox="0 0 16 54" aria-hidden="true"><path d="M8 0 C 12 12, 4 24, 8 36 C 11 44, 5 50, 8 54"/></svg>';
+  b.addEventListener('click',()=>popBalloon(b,w));
+  field.appendChild(b);
+});
+function popBalloon(b,w){
+  if(b.classList.contains('pop')) return;
+  b.classList.add('pop'); popSound();
+  const r=b.getBoundingClientRect();
+  if(!reduced) burst(r.left+r.width/2,r.top+r.height/2,22,5);
+  const f=document.createElement('div');
+  f.className='wish-float'; f.textContent='\u201C'+w+'\u201D';
+  f.style.left=(b.offsetLeft+b.offsetWidth/2)+'px'; f.style.top=(b.offsetTop-8)+'px';
+  field.appendChild(f); setTimeout(()=>f.remove(),1950);
+  const li=document.createElement('li');
+  li.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8.2-5.1-10.6-10C.1 7.2 2.5 3.6 6 3.6c2.3 0 4.1 1.3 6 3.7 1.9-2.4 3.7-3.7 6-3.7 3.5 0 5.9 3.6 4.6 7.4C20.2 15.9 12 21 12 21z"/></svg>'+w;
+  list.appendChild(li); requestAnimationFrame(()=>requestAnimationFrame(()=>li.classList.add('show')));
+  setTimeout(()=>b.remove(),380);
+  popped++;
+  $('#wishCount').textContent=popped;
+  $('#wishBar').style.width=(popped/17*100)+'%';
+  if(popped===17){
+    const fn=$('#finalNote'); fn.hidden=false;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>fn.classList.add('in')));
+    setTimeout(()=>{
+      const fr=fn.getBoundingClientRect();
+      if(!reduced) burst(fr.left+fr.width/2,fr.top+40,70,9);
+    },500);
+  }
+}
+
+/* ==========================================================
+   KUE : 17 lilin, tiup (tahan tombol / ketuk lilin)
+   ========================================================== */
+const candlesEl=$('#candles'), statusEl=$('#blowStatus');
+let lit=17, blowTimer=null;
+for(let i=0;i<17;i++){
+  const c=document.createElement('div');
+  c.className='candle';
+  c.innerHTML='<span class="flame"></span><span class="smoke"></span>';
+  c.addEventListener('click',()=>{ if(!c.classList.contains('out')) extinguish(c); });
+  candlesEl.appendChild(c);
+}
+function extinguish(c){ c.classList.add('out'); lit--; updateStatus(); if(lit===0) cakeFinale(); }
+function updateStatus(){
+  statusEl.textContent = lit>0 ? lit+' lilin masih menyala' : 'lilinnya padam\u2026 semoga permintaannya sampai ; )';
+}
+const btnBlow=$('#btnBlow'), btnRelight=$('#btnRelight');
+function blowStep(){
+  const next=candlesEl.querySelector('.candle:not(.out)');
+  if(!next){ stopBlow(); return; }
+  extinguish(next);
+}
+function stopBlow(){ clearInterval(blowTimer); blowTimer=null; btnBlow.classList.remove('holding'); }
+btnBlow.addEventListener('pointerdown',e=>{
+  e.preventDefault();
+  if(lit===0||blowTimer) return;
+  btnBlow.classList.add('holding');
+  blowStep(); blowTimer=setInterval(blowStep,115);
+});
+['pointerup','pointerleave','pointercancel'].forEach(ev=>btnBlow.addEventListener(ev,stopBlow));
+function cakeFinale(){
+  setTimeout(()=>{
+    const r=$('#cake').getBoundingClientRect();
+    if(!reduced){ burst(r.left+r.width/2,r.top+r.height*.4,80,9); setTimeout(()=>burst(r.left+r.width*.25,r.top+r.height*.3,30,6),250); }
+    const wd=$('#wishDone'); wd.hidden=false;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>wd.classList.add('in')));
+    btnBlow.hidden=true; btnRelight.hidden=false;
+  },280);
+}
+btnRelight.addEventListener('click',()=>{
+  candlesEl.querySelectorAll('.candle').forEach(c=>c.classList.remove('out'));
+  lit=17; updateStatus();
+  $('#wishDone').hidden=true; $('#wishDone').classList.remove('in');
+  btnRelight.hidden=true; btnBlow.hidden=false;
+});
+
+/* tetesan glasir (drip) kue — dibuat prosedural biar organik */
+function makeDrip(fill,seed){
+  const w=300,n=12,base=10,step=w/n;
+  let d='M0 0 H'+w+' V'+base;
+  for(let i=0;i<n;i++){
+    const x0=w-i*step, h=base+6+((Math.sin(seed+i*2.7)+1)/2)*16;
+    d+=' C '+(x0-step*.2)+' '+base+' '+(x0-step*.12)+' '+h+' '+(x0-step*.5)+' '+h+
+       ' C '+(x0-step*.88)+' '+h+' '+(x0-step*.8)+' '+base+' '+(x0-step)+' '+base;
+  }
+  d+=' Z';
+  return '<svg class="drip" viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true"><path d="'+d+'" fill="'+fill+'"/></svg>';
+}
+ $('#tierTop').insertAdjacentHTML('beforeend',makeDrip('#DD7E97',1));
+ $('#tierBottom').insertAdjacentHTML('beforeend',makeDrip('#FFF6EA',4));
+for(let i=0;i<9;i++){ /* taburan meses */
+  const s=document.createElement('i'); s.className='spr';
+  s.style.left=(8+Math.random()*84)+'%'; s.style.top=(32+Math.random()*55)+'%';
+  s.style.transform='rotate('+Math.round(Math.random()*180)+'deg)';
+  s.style.background=i%2?'#C79A3E':'#C2506F';
+  $('#tierBottom').appendChild(s);
+}
+
+/* ==========================================================
+   REVEAL SAAT SCROLL + LAIN-LAIN
+   ========================================================== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}),{threshold:.16});
+ $$('.reveal, .tl-item').forEach(el=>io.observe(el));
+ $('#replayBtn').addEventListener('click',()=>location.reload());
+})();
+</script>
+</body>
+</html>
